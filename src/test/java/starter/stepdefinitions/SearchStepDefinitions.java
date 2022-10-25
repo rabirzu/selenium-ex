@@ -9,28 +9,43 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.ensure.Ensure;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import starter.navigation.NavigateTo;
 import starter.search.LookForInformation;
 import starter.search.WikipediaArticle;
 
 public class SearchStepDefinitions {
+    WebDriver driver=new ChromeDriver();
 
-    @Given("{actor} is researching things on the internet")
-    public void researchingThings(Actor actor) {
-        actor.wasAbleTo(NavigateTo.theWikipediaHomePage());
+    public static SearchStepDefinitions createSearchStepDefinitions() {
+        return new SearchStepDefinitions();
     }
 
-    @When("{actor} looks up {string}")
-    public void searchesFor(Actor actor, String term) {
-        actor.attemptsTo(
-                LookForInformation.about(term)
-        );
+
+    @Given("^I access (.*)$")
+    public void accessUrl(String url) {
+            driver.navigate().to(url);
+
     }
 
-    @Then("{actor} should see information about {string}")
-    public void should_see_information_about(Actor actor, String term) {
-        actor.attemptsTo(
-                Ensure.that(WikipediaArticle.HEADING).hasText(term)
-        );
+
+    @Given ("^I click on the first checkbox$")
+    public void clickFirstCheckbox(){
+            driver.findElement(By.id("checkBoxOption1")).click();
+    }
+
+
+
+    @Then("I check that the checkbox is checked")
+    public void iCheckThatTheCheckboxIsChecked() {
+        Assert.assertTrue(driver.findElement(By.id("checkBoxOption1")).isEnabled());
+    }
+
+    @Then("I check that the checkbox is unchecked")
+    public void iCheckThatTheCheckboxIsUnchecked() {
+        Assert.assertTrue(driver.findElement(By.id("checkBoxOption1")).isDisplayed());
     }
 }
