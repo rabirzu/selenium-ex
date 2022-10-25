@@ -31,6 +31,7 @@ public class SearchStepDefinitions {
 
     }
 
+
     @Given ("^I click on the first checkbox$")
     public void clickFirstCheckbox(){
             driver.findElement(By.id("checkBoxOption1")).click();
