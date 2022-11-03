@@ -13,8 +13,5 @@ public class ParameterDefinitions {
         return OnStage.theActorCalled(actorName);
     }
 
-    @Before
-    public void setTheStage() {
-        OnStage.setTheStage(new OnlineCast());
-    }
+
 }
